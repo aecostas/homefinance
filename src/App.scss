@@ -1,0 +1,25 @@
+#root {
+    width:100%;
+    height: 100%;
+}
+
+.app {
+ display: grid; 
+        grid-template-columns: 0.5fr 1.5fr; 
+        grid-template-rows: 0.2fr 1.8fr; 
+        gap: 0px 0px; 
+        grid-template-areas: 
+          "header header"
+          "controls data"; 
+
+      .header { grid-area: header; }
+      .controls { grid-area: controls; }
+
+
+      .data { 
+          
+        grid-area: data; 
+    
+        height: 300px;
+    }
+}

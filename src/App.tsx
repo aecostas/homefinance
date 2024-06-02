@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import dayjs from 'dayjs'
+
+import './App.scss'
+import Timeserie from './ui-components/charts/Timeserie'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
+  const baseTime = dayjs();
+
+  const values = [{t: baseTime.toDate().getTime(), value: 1}]
+
+  const trend = 2/365
+  const noise = 0.3
+
+  for (let i=1; i<365*2; i++) {
+    values.push({t: baseTime.add(i, 'day').toDate().getTime(), value: values[i-1].value + (Math.random() - 0.5)*noise + trend }   )
+  }
+
+
+  console.log('loading...: ', values)
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='app'>
+      <div className='controls'>
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    
+      <div className='data'>
+         <Timeserie series={values}/>
+     </div>
+
+    </div>
   )
 }
 
